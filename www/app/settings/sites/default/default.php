@@ -1,0 +1,19 @@
+<?php
+$_SETTINGS['interface']=array(
+	'language'=>'ru',
+	'encoding'=>'utf-8',
+	'theme'=>'default',
+	'furl'=>FALSE,
+	'domain'=>'cms',
+	'query'=>'default/element/main'
+	);
+$_SETTINGS['cache']=array(
+	'active'=>FALSE,
+	'dir'=>'tmp/cache',
+	'time'=>10000
+	);
+$_SETTINGS['email']=array(
+	'admin'=>'wajox@mail.ru',
+	'robot'=>'wajox@mail.ru'
+	);
+?>

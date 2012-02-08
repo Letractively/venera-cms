@@ -1,0 +1,140 @@
+<?php
+//MODULE OPTIONS FORM
+class DefaultModuleOptForm extends CForm{
+
+	public function _edit_form(){
+			$this->tabs=array('elements'=>null,'comments'=>null);
+			$this->initEdit();
+			$this->sec();
+			$this->action=l(((MODE=='admin')?'admin/':'').'default/action/options/update');
+			$this->target="_self";
+			$this->autoframe=FALSE;
+			venus_set('html_form',&$this);
+		}
+	public function initEdit(){
+					$options=venus_options_load('default','json'); 
+					$items=array('moderate'=>0,'moderate_comments'=>1,'view_comments'=>2,'post_comments'=>3,'edit_comments'=>4,'delete_comments'=>5);
+					$field=array(
+						'tab'=>'elements',
+						'caption'=>lt('emoderation'),
+						'name'=>'moderation',
+						'type'=>CHECKBOX_FIELD_TYPE,
+						'validation'=>BOOL_TYPE,
+						'help'=>lt('emoderationd').'<br/>',
+						'options'=>array('checked'=>((intval($options['value']->o[0])==1)))
+					);
+					$this->add_field($field);
+					$field=array(
+						'tab'=>'comments',
+						'caption'=>lt('ecmoderation'),
+						'name'=>'comments_moderation',
+						'type'=>CHECKBOX_FIELD_TYPE,
+						'validation'=>BOOL_TYPE,
+						'help'=>lt('ecmoderationd').'<br/>',
+						'options'=>array('checked'=>(intval($options['value']->o[1])==1))
+					);
+					$this->add_field($field);
+					$field=array(
+						'tab'=>'elements',
+						'caption'=>lt('eamode'),
+						'name'=>'moderate',
+						'type'=>SELECT_FIELD_TYPE,
+						'validation'=>NUMERIC_TYPE,
+						'value'=>venus_ac_byitem('moderate',$options['value']->a,$items),
+						'help'=>lt('eamoded').'<br/>',
+						'options'=>array(
+								'size'=>1,
+								'items'=>$this->get_perms_list('4')
+							),
+					);
+					$this->add_field($field);
+					$field=array(
+						'tab'=>'comments',
+						'caption'=>lt('eamodc'),
+						'name'=>'moderate_comments',
+						'type'=>SELECT_FIELD_TYPE,
+						'validation'=>NUMERIC_TYPE,
+						'value'=>venus_ac_byitem('moderate_comments',$options['value']->a,$items),
+						'help'=>lt('eamodcd').'<br/>',
+						'options'=>array(
+								'size'=>1,
+								'items'=>$this->get_perms_list('4')
+							),
+					);
+					$this->add_field($field);
+
+					$field=array(
+						'tab'=>'comments',
+						'caption'=>lt('eaviewc'),
+						'name'=>'view_comments',
+						'type'=>SELECT_FIELD_TYPE,
+						'validation'=>NUMERIC_TYPE,
+						'value'=>venus_ac_byitem('view_comments',$options['value']->a,$items),
+						'help'=>lt('eaviewcd').'<br/>',
+						'options'=>array(
+								'size'=>1,
+								'items'=>$this->get_perms_list('4')
+							),
+					);
+					$this->add_field($field);
+					$field=array(
+						'tab'=>'comments',
+						'caption'=>lt('eapostc'),
+						'name'=>'post_comments',
+						'type'=>SELECT_FIELD_TYPE,
+						'validation'=>NUMERIC_TYPE,
+						'value'=>venus_ac_byitem('post_comments',$options['value']->a,$items),
+						'help'=>lt('eapostcd').'<br/>',
+						'options'=>array(
+								'size'=>1,
+								'items'=>$this->get_perms_list('4')
+							),
+					);
+					$this->add_field($field);
+					$field=array(
+						'tab'=>'comments',
+						'caption'=>lt('eaeditc'),
+						'name'=>'edit_comments',
+						'type'=>SELECT_FIELD_TYPE,
+						'validation'=>NUMERIC_TYPE,
+						'value'=>venus_ac_byitem('edit_comments',$options['value']->a,$items),
+						'help'=>lt('eaeditcd').'<br/>',
+						'options'=>array(
+								'size'=>1,
+								'items'=>$this->get_perms_list('4')
+							),
+					);
+					$this->add_field($field);
+					$field=array(
+						'tab'=>'comments',
+						'caption'=>lt('eadropc'),
+						'name'=>'delete_comments',
+						'type'=>SELECT_FIELD_TYPE,
+						'validation'=>NUMERIC_TYPE,
+						'value'=>venus_ac_byitem('delete_comments',$options['value']->a,$items),
+						'help'=>lt('eadropcd').'<br/>',
+						'options'=>array(
+								'size'=>1,
+								'items'=>$this->get_perms_list('4')
+							),
+					);
+					$this->add_field($field);
+		}
+		private function get_perms_list($not=''){
+			$r=array(
+						'4'=>array('value'=>'4','caption'=>lt('group_nobody')),
+						'3'=>array('value'=>'3','caption'=>lt('group_admins')),
+						'2'=>array('value'=>'2','caption'=>lt('group_moderators')),
+						'1'=>array('value'=>'1','caption'=>lt('group_users')),
+						'0'=>array('value'=>'0','caption'=>lt('group_guests'))
+					);
+			if($not!=''){
+				$not=explode(',',$not);
+				if(is_array($not)) foreach($not as $k=>&$notval)if(isset($r[$notval])) unset($r[$notval]);
+				else if(isset($r[$not])) unset($r[$not]);
+			}
+			return $r;
+		}
+	}
+//------------------------------//
+?>

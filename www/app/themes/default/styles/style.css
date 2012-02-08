@@ -1,0 +1,52 @@
+#auth{padding:10px;background:#FFFF55;font-size:12px;}
+#menu{padding:5px;width:190px;float:left;}
+#menu{padding:10px;width:180px;float:left;}
+#content{padding:10px;width:660px;float:left;}
+#main{width:880px;margin:0 auto;background:#FFFFFF;border-style:solid;border-width:1px;border-color:#CCCCCC;padding:10px;}
+#footer{color:#AAAAAA;font-size:12px;padding:10px 0px 0px 0px;width:900px;margin:0 auto;}
+#footer a{color:#AAAAAA;font-size:12px;}
+body{background:#E5E5EE;margin:0px;font-family:Arial;padding:10px;}
+img{border:0;}
+a{color:#055FAC;}
+a:hover{text-decoration:none;}
+.fixed{
+	position:fixed;;
+<!--[if IE]>
+	position: absolute;
+	top: expression(eval(document.body.scrollTop) + "px");
+<![endif]-->
+}
+.shadow{
+    position:fixed;;
+    background:#000000;
+    opacity:.8;
+    filter:alpha(opacity=80);
+    left:0;
+    top:0;
+	width:100%;
+	height:100%;
+<!--[if IE]>
+	position: absolute;
+	top: expression(eval(document.body.scrollTop) + "px");
+<![endif]-->
+}
+div.error_box{
+	padding:5px;
+	background:#F9A8A7;
+	border-style:solid;
+	border-width:1px;
+	border-color:#EA0806;
+	margin:10px;
+	font-size:16px;
+}
+div.message_box{
+	padding:5px;
+	background:#EEFFEE;
+	border-style:solid;
+	border-width:1px;
+	border-color:#005500;
+	margin:10px;
+	font-size:16px;
+}
+.form_field_unvalidated{color:red;border-color:red;}
+

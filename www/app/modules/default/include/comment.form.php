@@ -1,0 +1,110 @@
+<?php
+class CommentForm extends CForm{
+
+	public function _add_form($c){
+			$this->initAdd();
+			$this->sec();
+			$this->action=l(((MODE=='admin')?'admin/':'').'default/action/post_comment/'.$c->cEID.'/create');
+			$this->target="_self";
+			$this->autoframe=FALSE;
+			venus_set('html_comment_form',$this);
+		}
+	public function _edit_form($c){
+			$this->initEdit($c);
+			$this->sec();
+			$this->action=l(((MODE=='admin')?'admin/':'').'default/action/edit_comment/'.$c->cID.'/update');
+			$this->target="_self";
+			$this->autoframe=FALSE;
+			venus_set('html_comment_form',$this);
+		}
+	public function initAdd(){
+			if(isGuest()){
+			   		$field=array(
+						'caption'=>lt('calogin'),
+						'name'=>'cAName',
+						'type'=>TEXT_FIELD_TYPE,
+						'validation'=>TEXT_TYPE,
+						'minsize'=>3,
+						'maxsize'=>255,
+						'help'=>lt('calogind')
+					);
+					$this->add_field($field);
+			   		$field=array(
+						'caption'=>lt('caemail'),
+						'name'=>'cAEmail',
+						'type'=>TEXT_FIELD_TYPE,
+						'validation'=>EMAIL_TYPE,
+						'minsize'=>4,
+						'maxsize'=>255,
+						'help'=>lt('caemaild')
+					);
+					$this->add_field($field);
+				}
+			$field=array(
+				'caption'=>lt('ctext'),
+				'name'=>'cText',
+				'type'=>TEXTAREA_FIELD_TYPE,
+				'validation'=>TEXT_TYPE,
+				'filters'=>'htmlspecialchars,stripwhitespaces,size',
+				'minsize'=>1,
+				'maxsize'=>2000,
+				'help'=>lt('ctextd'),
+				'options'=>array('cols'=>50,'rows'=>7)
+			);
+			$this->add_field($field);
+		}
+	public function initEdit($c){
+			if(access('moderate_comments')){
+				$field=array(
+						'caption'=>lt('cactive'),
+						'name'=>'cActive',
+						'type'=>CHECKBOX_FIELD_TYPE,
+						'validation'=>BOOL_TYPE,
+						'help'=>lt('cactived'),
+						'value'=>'ON',
+						'options'=>array('checked'=>($c->cActive==1))
+
+				);
+				$this->add_field($field);
+			}
+			if(isGuest()){
+			   		$field=array(
+						'caption'=>lt('calogin'),
+						'name'=>'cAName',
+						'type'=>TEXT_FIELD_TYPE,
+						'validation'=>TEXT_TYPE,
+						'minsize'=>3,
+						'maxsize'=>255,
+						'help'=>lt('calogind'),
+						'value'=>$c->cAName
+					);
+					$this->add_field($field);
+			   		$field=array(
+						'caption'=>lt('caemail'),
+						'name'=>'cAEmail',
+						'type'=>TEXT_FIELD_TYPE,
+						'validation'=>EMAIL_TYPE,
+						'minsize'=>4,
+						'maxsize'=>255,
+						'help'=>lt('caemaild'),
+						'value'=>$c->cAEmail
+					);
+					$this->add_field($field);
+				}
+			$field=array(
+				'caption'=>lt('ctext'),
+				'name'=>'cText',
+				'type'=>TEXTAREA_FIELD_TYPE,
+				'validation'=>TEXT_TYPE,
+				'filters'=>'htmlspecialchars,stripwhitespaces,size',
+				'minsize'=>1,
+				'maxsize'=>65500,
+				'help'=>lt('ctextd'),
+				'value'=>$c->cText,
+				'options'=>array('cols'=>50,'rows'=>7)
+			);
+			$this->add_field($field);
+		}
+
+	}
+?>
