@@ -1,0 +1,1 @@
+<?php echo __l('admin/files/dir/'.urlencode(venus_get('path')),'back to '.venus_get('path'));?>
